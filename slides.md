@@ -10,460 +10,611 @@ class: text-center
 
 drawings:
   persist: false
-transition: slide-left
+transition: fade
+
 
 ---
+
+<style>
+.gradient-heading {
+  font-size: 2em;
+  font-weight: bold;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+.section-heading {
+  font-size: 1.4em;
+  color: #007cf0;
+  margin-top: 20px;
+  font-weight: 800;
+}
+</style>
 
 # Welcome to Circle 13 Presentation
 This presentation covers our journey so far in Semester 2, with detailed learning highlights.
 
 ---
 
-# Month 1 Week 1: Journey Continues with Frontend Engineering
+<span class="gradient-heading">Month 1, Week 1 – Deep Dive into Frontend Engineering with JavaScript</span>
 
-## Key Introductions
+<span class="section-heading">1. Foundational Resources for Frontend Development</span>
 
-- Deeper Dive into the *Frontend Engineering*
-- Tools and resources recommended:
-  - Learning How to Learn course on Coursera
-  - Frontend Handbook by Cody Lindley
-  - Refactoring UI by Tailwind creators
+Before diving fully into JavaScript and React, it’s important to follow some helpful guides and resources:
 
-These laid the foundation for how we approach coding, design decisions, and learning strategies this semester.
+<v-clicks>
+
+- *Learning How to Learn* (Coursera – 4-week course): Teaches smart ways to understand and retain new concepts.
+- *Frontend Handbook* by Cody Lindley (Frontend Masters): Offers a detailed map of the frontend engineering landscape.
+- *Refactoring UI*: Explains why some user interfaces (UIs) are better than others, and how to improve your design thinking.
+
+ </v-clicks>
 
 ---
 
-# Deep Dive into JavaScript Basics
-
-Before jumping into React, we began a deeper dive into JavaScript concepts.
-
-## Functions and the return Statement
-
-- Every function should return a result.
-- Without return, the function returns undefined.
+<span class="section-heading">2. JavaScript Functions</span>
+- Every function **should end with a return statement**. This tells the function what to give back after it's done executing.
 - You can return:
-  - A single value
-  - An object
+
+  - A single variable  
+  - An object 
   - An array
-  - Or even another function!
+  - Or even another *function* 
+
+- A function *without a return statement* returns undefined by default.
+
+*Example:*
+```js
+function greet(name) {
+  return `Hello, ${name}`;
+}
+
+console.log(greet("Israel")); // Output: Hello, Israel
+```
+
 
 ---
 
-# Arrays in JavaScript
+<span class="section-heading">3. JavaScript Arrays</span>
+- Arrays are used to store *multiple values* in one variable.
 
-## Declaration
-
+- Syntax:
 ```js
-const arr = ['a', 'b', 'c'];
+let arr = ['a', 'b', 'c'];
 ```
 
-	•	Arrays store multiple values in a single variable.
-	•	Use [] brackets and comma-separated values to easily identify Arrays.
+- Arrays are enclosed in square brackets [] and the items are *comma-separated*.
+- Arrays can store any data type (strings, numbers, objects, etc.).
 
-Useful Array Methods include:
-	
-  .push(), .pop(), .slice(), .filter(), .find(), etc.
+### *Common Array Operations*
+
+<v-clicks>
+
+- push() – adds to the end
+- pop() – removes from the end
+- shift() – removes from the start
+- unshift() – adds to the start
+- slice() – copies part of an array
+- filter(), find() – used to search and return specific elements
+
+ </v-clicks>
 
 ---
 
-# Spread Operator
+<span class="section-heading">4. Spread Operator (...)</span>
+- Used to *copy or "spread"* the contents of arrays or objects into a new one.
+- Works on any *iterable* data type like:
 
-The ... spread operator expands or copies the contents of an array or object.
+<v-clicks>
 
-## Example with Array:
+  - Arrays
+  - Strings
+  - Sets
+  - Maps
+
+</v-clicks>
+
+### *Example 1: Spread with Arrays*
 ```js
-const arr = ['a', 'b', 'c'];
-const copy = [...arr]; // spreads values into a new array
+let arr = ['a', 'b', 'c'];
+let newArr = [...arr];
+console.log(newArr); // ['a', 'b', 'c']
 ```
 
-## Example with Object:
+
+### *Example 2: Spread with Objects*
 ```js
-const obj = { name: 'Ojo', age: 12 };
-const copy = { ...obj, name: 'Ola' };
+let obj = { name: "Ojo", age: 12 };
+let copied = { ...obj };
+console.log(copied); // { name: "Ojo", age: 12 }
+```
+---
+
+## *Why Spread?*
+To make *clones* or *copies* so you don’t modify the original data.
+
+### *Example: Copy and Modify*
+```js
+let obj = { name: "Ojo", age: 12 };
+let copied = { ...obj, name: "Ola" };
+console.log(copied); // { name: "Ola", age: 12 }
 ```
 
-	•	It clones and allows overriding values during the copy.
+## *Array Version of Copy and Modify*
+```js
+let arr = ['a', 'b', 'c'];
+let copiedArr = [...arr, 'd'];
+console.log(copiedArr); // ['a', 'b', 'c', 'd']
+```
 
 ---
 
-# Rest Parameters
+<span class="section-heading">5. Rest Parameter (...)</span>
+- Rest parameters allow a function to accept *any number of arguments* as an array.
 
-The rest syntax allows us to accept any number of arguments as an array.
-
+### *Example:*
 ```js
 function add(...numbers) {
-  return numbers.reduce((a, b) => a + b, 0);
+  console.log(numbers);
 }
 
-add(10, 50, 80, 70); // 210
+add(1, 2, 3, 4, 5); 
+// Output: [1, 2, 3, 4, 5]
 ```
-
-How does reduce() work? 
-It takes a callback and a starting value and adds each value in the array to a running total.
-
-```js
-(a, b) => a + b
-```
-
-This means: keep adding each b to a.
 
 ---
 
-# Callback Functions
-
-## What is a Callback?
-
-A callback is a function passed into another function to run later.
-
-Example:
-
+## *Use Case: Summing Numbers*
 ```js
-
-function ask(question, yesFn, noFn) {
-  const result = confirm(question);
-  if (result) yesFn();
-  else noFn();
+function add(...nums) {  
+  let result = 0;
+  for (let i = 0; i < nums.length; i++) {
+    result += nums[i]; //result = result + nums[i];
+  }
+  return result;
 }
 
-ask(
+console.log(add(10, 50, 80, 70)); // Output: 210
+```
+
+
+### **Shorter Version Using reduce()**
+```js
+function add(...nums) {
+  return nums.reduce((a, b) => a + b, 0);
+}
+
+console.log(add(10, 50, 80, 70)); // Output: 210
+```
+
+---
+
+## **What does reduce() do?**
+- It *reduces* all items in an array to a single value (like adding all numbers together).
+- It takes a *callback function* with:
+  - a – the accumulated total so far
+  - b – the current value
+- 0 is the starting value.
+
+---
+
+<span class="section-heading">6. Callback Functions</span>
+
+A *callback function* is a function that is passed as an argument to another function and *is called later (or back)* when needed.
+
+### *Example:*
+```js
+function callbackEx(message, yesFn, noFn) {
+  let result = confirm(message);
+
+  if (result) {
+    yesFn();  // If user clicks "OK"
+  } else {
+    noFn();   // If user clicks "Cancel"
+  }
+}
+
+callbackEx(
   "Do you have a boyfriend?",
   () => console.log("Yes"),
   () => console.log("No")
 );
-
 ```
 
-	If you click OK, the yesFn() runs. If Cancel, noFn() runs.
-This is useful for user input and asynchronous code like APIs and event handlers.
+---
+
+## *Explanation:*
+- confirm(message) shows a pop-up with “OK” and “Cancel” and returns:
+  - true if OK is clicked
+  - false if Cancel is clicked
+- yesFn and noFn are callback functions.
+- Depending on the user's choice, one of the callbacks is executed.
 
 ---
 
-# Week 1 Summary
-	We strengthened our foundation in:
-	•	JavaScript Functions
-	•	Arrays and Operators
-	•	Spread & Rest syntax
-	•	Callback functions
+<span class="gradient-heading">MONTH 1, WEEK 2 - JavaScript Core Concepts</span>
 
-	Week 1 gave us the building blocks we’ll need for more advanced topics.
+<span class="section-heading">1. Callbacks (Continued)</span>
 
----
+A *callback function* is a function passed as an argument to another function and is executed after some operation.
 
-
-# Month 1 Week 2: From Callbacks to Promises
-
-## Revisiting Callback Functions
-
-We continued from last week’s topic on callbacks.
-
-### Callback with sort()
-
+## **Callback with sort()**
 ```js
-const numbers = [4, 2, 9, 1];
-numbers.sort((a, b) => a - b); // ascending sort
+const numbers = [40, 100, 1, 5, 25, 10];
+
+// Using a callback function to sort in ascending order
+numbers.sort(function(a, b) {
+  return a - b;
+});
+
+console.log(numbers); // [1, 5, 10, 25, 40, 100]
 ```
 
-	sort() method uses a callback that takes two parameters 
-  It then compares each pair to determine order.
-
-
-
-### Callback with filter() and find()
-```js
-const ages = [12, 18, 20, 15, 30];
-
-const adults = ages.filter(age => age >= 18);
-const firstAdult = ages.find(age => age >= 18);
-```
-
-The filter() method returns all items that pass the test while find() returns the first item that passes the test.
+- The callback takes two parameters (a and b) and compares them.
+- This callback determines the order by returning a negative (a before b), zero (no change), or positive (b before a).
 
 ---
 
-# Working with the DOM
-## DOM Overview
-	-	JavaScript converts HTML elements into objects called the DOM.
-	-	You can inspect DOM objects using console.dir().
+## **Callback with filter()**
+```js
+const scores = [45, 90, 65, 100, 30];
 
-Example:
+const passed = scores.filter(function(score) {
+  return score >= 50;
+});
+
+console.log(passed); // [90, 65, 100]
+```
+
+
+## **Callback with find()**
+```js
+const users = [
+  { name: "Jane", age: 22 },
+  { name: "Tom", age: 30 },
+];
+
+const result = users.find(function(user) {
+  return user.age > 25;
+});
+
+console.log(result); // { name: "Tom", age: 30 }
+```
+
+---
+
+<span class="section-heading">2. DOM and Event Handlers</span>
+
+- The *DOM (Document Object Model)* is JavaScript’s way of interacting with your HTML.
+- JavaScript converts each HTML element into an object.
+- You can inspect any element's object form using console.dir(element).
+
+## *Example: onclick and DOM*
 ```html
-<button id="myBtn">Click Me</button>
+<button id="clickMe">Click Me</button>
 ```
 
 ```js
-const btn = document.getElementById("myBtn");
-console.dir(btn); // Shows all properties of the button
-```
+  const btn = document.getElementById("clickMe");
 
-It is important to note that IDs act like powerful hooks and can be used as variables.
- Also, the onclick and addEventListener() expect a callback function.
+  btn.onclick = function() {
+    alert("You clicked me!");
+  };
+
+  console.dir(btn); // Shows the full object representation of the button
+```
+  
+- The id="clickMe" gives us direct access to the element using getElementById().
+- Event handler onclick triggers a *callback function* when clicked.
 
 ---
 
-# Promises in JavaScript
+<span class="section-heading">3. Promises</span>
 
-## What is a Promise?
+A *Promise* is an object representing the eventual completion or failure of an asynchronous operation.
 
-A Promise is an object representing the result of an async task.
-	-	States: pending, fulfilled, or rejected
-	-	Unlike callbacks, we don’t know when the action completes.
+## *States of a Promise*
+1. *Pending* – initial state
+2. *Fulfilled* – operation completed successfully
+3. *Rejected* – operation failed
 
-### Creating a Promise
+### **Creating a Promise**
 ```js
-const myPromise = new Promise((resolve, reject) => {
-  let success = true;
-  if (success) resolve("Done!");
-  else reject("Failed!");
+const checkWeather = new Promise((resolve, reject) => {
+  let isSunny = true;
+
+  if (isSunny) {
+    resolve("It’s sunny outside!");
+  } else {
+    reject("It's raining.");
+  }
 });
 ```
 ---
 
-# Using .then() and .catch()
+## **Using .then() and .catch()**
 ```js
-myPromise
-  .then(result => console.log(result))   // logs "Done!"
-  .catch(error => console.error(error)); // logs "Failed!"
-  ```
-	-	.then() handles the resolved value.
-	-	.catch() handles errors if the promise fails.
+checkWeather
+  .then(response => {
+    console.log("Success:", response);
+  })
+  .catch(error => {
+    console.log("Failed:", error);
+  });
+```
+- resolve() passes data to .then()
+- reject() passes data to .catch()
 
-## Using fetch() with Promises
+---
+
+<span class="section-heading">4. Truthy and Falsy Values</span>
+
+In JavaScript, all values are *truthy* except these *falsy* ones:
+
+<v-clicks>
+
+- 0              
+- "" (empty string) 
+- null           
+- undefined   
+- NaN 
+
+</v-clicks>
+
+---
+
+<span class="section-heading">5. Fetch and Promises</span>
+
+The fetch() API is used to make network requests and works with promises.
+
+## *Example:*
 ```js
-
 fetch("https://api.github.com/users/oluwasetemi")
-  .then(res => res.json())
-  .then(data => console.log(data))
-  .catch(error => console.error("Error:", error));
-  ```
+  .then(res => res.json()) // Convert response to JSON
+  .then(data => console.log(data)) // Handle the data
+  .catch(error => console.log("Error:", error)); // Catch any errors
+```
 
-	-	fetch() returns a Promise.
-	-	.then() parses the response into JSON.
-	-	.catch() captures network or parsing errors.
+---
 
+<span class="section-heading">6. Async / Await</span>
 
---- 
+The async keyword makes a function return a promise, and await is used to pause until a promise resolves.
 
-# Async & Await
-
-## Making Async Code Easier
+## *Example:*
 ```js
-async function getUser() {
+async function fetchUser() {
   try {
-    const res = await fetch("https://api.github.com/users/oluwasetemi");
-    const data = await res.json();
+    const response = await fetch("https://api.github.com/users/oluwasetemi");
+    const data = await response.json();
     console.log(data);
   } catch (error) {
-    console.error("Error:", error);
+    console.log("Error fetching user:", error);
   }
 }
 ```
 
-	-	async turns a function into a promise.
-	-	await pauses execution until the promise resolves.
-	-	try/catch helps handle errors gracefully.
+- async tells JavaScript to expect asynchronous operations inside.
+- await pauses the function until the fetch promise is fulfilled.
+- try...catch is used to handle errors gracefully.
 
 ---
 
-# IIFE – Immediately Invoked Function Expression
+<span class="section-heading">7. Immediately Invoked Function Expression (IIFE)</span>
 
-An IIFE is a function that runs as soon as it’s defined.
+An *IIFE* is a function that runs immediately after being defined.
+
+## *Example:*
 ```js
 (function () {
-  console.log("I ran immediately!");
+  console.log("This runs immediately!");
 })();
 ```
 
-	It is wrapped in parentheses and followed by ().
+- Useful for running setup code without polluting the global scope.
 
 ---
 
-# Closures
+<span class="section-heading">8. Closures</span>
 
-Closures allow functions to access outer scope variables even after the outer function has finished.
+A *closure* is a function that remembers its outer variables, even after the outer function has finished running.
 
-Example:
+## *Example:*
 ```js
 function outer() {
   let count = 0;
+
   return function inner() {
     count++;
-    console.log(count);
+    console.log("Count is:", count);
   };
 }
 
 const counter = outer();
-counter(); // 1
-counter(); // 2
+
+counter(); // Count is: 1
+counter(); // Count is: 2
 ```
 
-	- The inner function “remembers” the outer variable count.
+- The inner() function has access to count even after outer() has finished.
+- This is because of *closure* — the inner function "closes over" the variables it uses.
 
 ---
 
-# Week 2 Summary
-	-	Callback functions with sort, filter, and find
-	-	DOM and how JS sees elements as objects
-	-	Promises and async/await
-	-	Error handling with .catch() and try/catch
-	-	IIFEs and closures — key to advanced JavaScript behavior
+<span class="gradient-heading">Month 1 - Week 3 Notes: JavaScript (API Calls & Authentication)</span>
+
+## **Recap**
+We previously explored:
+- Learning how to learn (Coursera)
+- Refactoring UI (understanding why one UI is better than another)
+- Working with *APIs* using fetch(), *Promises*, async/await.
 
 ---
 
-# Month 1 Week 3: Making API Calls & Understanding Tokens
+<span class="section-heading">1. API Calls</span>
 
-## Recap
+## **What is an API Call?**
+An API (Application Programming Interface) is a way to *communicate with a backend server*. As a frontend engineer:
+1. You build a pixel-perfect UI.
+2. You connect that UI to external data or functionality using APIs.
 
-- Reviewed *Learning How to Learn* and *Refactoring UI*
-- Continued building on API usage from Week 2
-
----
-
-# What Are API Calls?
-
-An *API (Application Programming Interface)* allows frontend apps to talk to a backend server.
-
-- Think of it as asking a waiter (the API) to take your order (a request) to the kitchen (backend), and return your food (a response).
+## **Two Common API Methods:**
+1. *GET* – Retrieve data from a server.
+2. *POST* – Send data to a server, often used during signup/login.
 
 ---
 
-# GET vs POST
-
-## GET Request
-
-- Used to *fetch data* from the server.
-- Doesn’t send data — just asks for it.
-
-```js
-fetch("https://api.example.com/users")
-  .then(res => res.json())
-  .then(data => console.log(data));
-  ```
+## *GET Request Example (Using Fetch):*
+javascript
+fetch('https://api.github.com/users/oluwasetemi')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
 
 
-## POST Request
-	-	Used to send data to the server — usually for login, signup, or creating something.
-```js
-fetch("https://api.example.com/signup", {
-  method: "POST",
+*Explanation:*
+- The URL is the *endpoint*.
+- .then(res => res.json()) converts the response into a JavaScript-readable format.
+- .catch() handles any error if the call fails.
+
+---
+
+### *POST Request Example:*
+
+Imagine you're signing up with *email and password*:
+javascript
+fetch('https://example.com/signup', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json"
+    'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    email: "olubode@altschool.com",
-    password: "password123"
+    email: 'test@example.com',
+    password: '123456'
   })
 })
 .then(res => res.json())
-.then(data => console.log(data));
-```
+.then(data => {
+  const token = data.token; // Token returned by server
+  console.log('User token:', token);
+})
+.catch(err => console.error('Signup failed', err));
 
-	-	In response, the server usually returns a token.
 
----
+### *Token Authentication Flow:*
+1. You send your email and password to the API (with a POST request).
+2. The server checks and sends back a *token* (usually a JWT).
+3. You store the token (e.g., in localStorage).
+4. For subsequent requests, you add the token to the *Authorization header* to stay logged in.
 
-# What is a Token?
-	-	A token is a unique string that confirms your identity.
-	-	It’s like a digital ID card.
-	-	After login, you’ll get a token which you’ll send back for future requests.
-
-## Using a Token in Headers
-
-After receiving a token from a POST login/signup request:
-```js
-fetch("https://api.example.com/user-data", {
+javascript
+fetch('https://example.com/profile', {
+  method: 'GET',
   headers: {
-    Authorization: Bearer ${token}
+    'Authorization': `Bearer ${yourToken}`
   }
-});
-```
+})
 
-	This tells the backend: “Here’s my identity, now show me my data.”
 
 ---
 
-# Checking Tokens with Tools
+### *Understanding Tokens (JWT - JSON Web Tokens)*
 
-## jwt.io
-Use jwt.io to decode JWT tokens. You can paste your token to see:
-	-	Payload (user info)
-	-	Expiration time
-	-	Encryption type
+- JWTs are encrypted strings that store user identity details.
+- They look like this: eyJhbGciOiJIUzI1NiIsInR...
+- You can paste your token into:
+  - *[jwt.io](https://jwt.io)* – Decodes JWT into readable info.
+  - *[token.dev](https://token.dev)* – Shows expiry, payload, header, etc.
 
-## token.dev
-You can also paste your token into token.dev to easily view:
-	-	Expiry
-	-	Encoded vs Decoded info
-	-	Signature type
-
----
-
-# Encryption vs Decryption
-	-	Encryption = securing data so only someone with a key can read it.
-	-	Decryption = using the key to turn it back into readable info.
-	Most websites (like Twitter, Gmail) store your session using encrypted tokens.
+### *Token Sections:*
+- *Header* – Specifies the algorithm used.
+- *Payload* – Contains user info (like ID, role).
+- *Signature* – A secure hash that validates the token.
 
 ---
 
-# Using Postman for API Testing
+### *Encryption vs Decryption*
+- *Encryption* is turning readable data into a coded format.
+- *Decryption* is converting it back to readable format.
+- JWTs are encrypted to protect user identity.
 
-## What is Postman?
-	A GUI tool for testing APIs without writing code.
+---
 
-Steps:
-	1.	Open Postman
-	2.	Set method to POST
-	3.	Enter URL (e.g. https://api.example.com/signup)
-	4.	Go to Body > choose raw > select JSON
-	5.	Enter data:
-```js 
+## *Tools to Test APIs*
+
+### *1. Postman*
+- A visual tool to test GET, POST, PUT, DELETE requests.
+- You can:
+  - Paste an endpoint URL
+  - Choose request type (GET/POST)
+  - Add headers (e.g., Authorization)
+  - Add body content (e.g., JSON payload)
+
+#### *Postman Usage Example:*
+- URL: https://example.com/login
+- Method: POST
+- Body (JSON):
+json
 {
-  "email": "circle13@altschool.com",
-  "password": "password123"
+  "email": "test@example.com",
+  "password": "123456"
 }
-```
 
-	6.	Hit Send
-	7.	View the response — your token!
+- Click "Send"
+- View response (e.g., token)
 
 ---
 
-# Using json-server to Fake an API
-If you don’t have a backend, you can use json-server to create fake endpoints.
+### *2. JSON Server (Mock Backend)*
 
-Steps:
-	1.	Install:
-```js
+If you don’t have a backend developer, you can create a *fake API* using JSON Server.
+
+#### *Setup Steps:*
+1. Install JSON Server:
+bash
 npm install -g json-server
-```
 
-	2.	Create a db.json file:
-  ```js
 
+2. Create a db.json file:
+json
 {
   "todos": [
-    { "id": 1, "task": "Build UI" },
-    { "id": 2, "task": "Call API" }
+    { "id": 1, "task": "Learn JavaScript", "completed": false }
   ]
 }
-```
 
-	3.	Run server:
-  ```js
 
+3. Start the server:
+bash
 json-server --watch db.json
-```
 
-	-	Visit: (http://localhost:3000/todos)
 
-You can now use GET, POST, DELETE etc. on this fake API.
+4. Use it like a real API:
+- GET todos: http://localhost:3000/todos
+- POST new todo:
+javascript
+fetch('http://localhost:3000/todos', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    task: 'Complete API lesson',
+    completed: false
+  })
+})
+
 
 ---
 
-# Week 3 Summary
-	-	Learned how APIs connect frontend and backend
-	-	Understood GET vs POST
-	-	Handled tokens for authentication
-	-	Explored token tools like jwt.io and token.dev
-	-	Practiced with Postman and json-server
+### *Summary*
+- *GET* = Fetch data
+- *POST* = Send data
+- *Tokens* help with user authentication
+- Use tools like *Postman* and *JSON Server* for testing APIs
+- Tokens can be decoded using *jwt.io* or *token.dev*
+- JSON Server helps simulate backend API for learning or frontend testing
 
 ---
