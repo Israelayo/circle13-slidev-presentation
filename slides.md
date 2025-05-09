@@ -618,3 +618,139 @@ fetch('http://localhost:3000/todos', {
 - JSON Server helps simulate backend API for learning or frontend testing
 
 ---
+
+# Month 2 Week 2
+
+ ## Building a todo list with HTML ,CSS and Javascript
+ ### Form Submission Event and Methods
+It lets users send data to a server for processing Javascript handles this by:
+- Using the submit Event
+- Using the form.submit () method
+Forms are submitted by:
+<v-clicks> 
+
+-Clicking the submit button
+
+-Pressing enter while focused on an input field
+
+</v-clicks>
+
+---
+
+## Features in a To- do App
+- 1. Update To do 
+```js
+    function addTask() {
+    const input = document.getElementById("taskInput");
+    const li = document.createElement("li");
+
+     const span = document.createElement("span");
+     span.textContent = input.value;
+      span.onclick = () => {
+      const newText = prompt("Edit task:", span.textContent);
+      if (newText) span.textContent = newText;
+       };
+
+      const btn = document.createElement("button");
+      btn.textContent = "Remove";
+      btn.onclick = () => li.remove();
+
+      li.appendChild(span);
+      li.appendChild(btn);
+      document.getElementById("taskList").appendChild(li);
+      input.value = "";}
+```
+
+---
+
+## Delete Todo
+```js
+    function add() {
+      let li = document.createElement("li");
+      li.textContent = document.getElementById("task").value;
+      li.onclick = () => li.remove(); // Click task to delete
+      document.getElementById("list").appendChild(li);
+      document.getElementById("task").value = "";
+    }
+</body>
+```
+
+---
+
+# Month 2 Week 4 & Extra class 1
+
+---
+
+## Modules
+Modules help to import and export different sections of code from different files into other files.
+
+### Benefits of modules
+* Improve code organization
+* Easier maintainance and debugging
+* Reusability across projects
+
+---
+
+## 2 .Bundlers
+A bundler is a dev tool that takes multiple Javascript files and combines them into a single file. improving load speed and efficiency for web applications.
+
+### Popular bundlers
+1. Webpack
+2. Vite
+3. Parcel
+4. Rollup
+
+---
+
+## 3. Imports and Exports
+(a) Named export
+
+```js 
+// math.js
+export function add(a, b) {
+  return a + b;
+}
+```
+
+---
+
+(b) Renamed Export
+
+It lets you change the name of an import or export when needed.
+
+(c) Dynamic Import
+
+It lets you load a module when its needed.
+
+---
+
+## 4. ECMA Script Modules (ESM)
+It is the standardized module system for Javascript 
+
+It is supported in modern browsers and Node.js
+
+## How to enable ESM in node.js
+Use the .mjs file extension or
+
+add "type":"module" in package.json
+
+---
+
+## 5. Package .json
+It defines your project details, depedencies and scripts
+
+  ### It's Uses
+* Track and install packages
+* Run Scripts
+* Share projection configuration
+   
+
+
+
+
+
+
+
+ 
+
+
