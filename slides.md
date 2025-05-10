@@ -19,7 +19,7 @@ transition: fade
 .gradient-heading {
   font-size: 2em;
   font-weight: bold;
-  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  background: linear-gradient(90deg, #4f46e5, #6366f1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 20px;
